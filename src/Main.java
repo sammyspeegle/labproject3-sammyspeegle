@@ -7,18 +7,37 @@ public class Main {
         System.out.println("Welcome to Blind Man's Bluff");
         boolean play, invalid, guessedHigher = false;
         String response;
-        int compValue, userValue, nWin = 0, nLoss = 0, nTie = 0;
+        int nWin = 0, nLoss = 0, nTie = 0;
+        //compValue, userValue,
         Scanner sc= new Scanner(System.in);
         play = true;
         Random rand = new Random();
+
+        //populate and shuffle deck
+        Deck deck = new Deck();
+        deck.populate();
+        deck.shuffle();
+
+        //gives computer and player card
+        Card computerCard = new Card();
+        Card playerCard = new Card();
+
+
+
+
         while(play) {
-            // assign values to computer and user
-            compValue = rand.nextInt(52);
-            userValue = rand.nextInt(52);
+
+            //Fix
+            if(deck.getCardsLeft()==0){
+                System.out.println("No more cards");
+                break;
+            }
+
 
             // get user's bet
-            System.out.println( "Computer's value is "+ compValue);
+            System.out.println( "Computer's value is "+ computerCard.toString());
             invalid = true;
+
             while(invalid) {
                 System.out.println( "Do you think your number is higher or lower? (H/L)");
                 response=sc.next();
@@ -38,17 +57,17 @@ public class Main {
             }
 
             // determine outcome
-            if((compValue < userValue && guessedHigher) || (compValue > userValue && !guessedHigher)) {
+            if(((computerCard.Comparator(playerCard) >= 1) && guessedHigher) || ((computerCard.Comparator(playerCard) >= -1) && !guessedHigher)) {
                 System.out.println("Great! You're right:");
                 nWin++;
-            } else if((compValue > userValue && guessedHigher) || (compValue < userValue && !guessedHigher)) {
+            } else if(((computerCard.Comparator(playerCard) <= -1) && guessedHigher) || ((computerCard.Comparator(playerCard) >=1) && !guessedHigher)) {
                 System.out.println("Sorry, you're wrong:");
                 nLoss++;
             } else {
                 System.out.println("It's a tie:");
                 nTie++;
             }
-            System.out.println("your value is "+ userValue);
+            System.out.println("your value is "+ playerCard.toString());
 
             // ask user to play again
             invalid = true;
