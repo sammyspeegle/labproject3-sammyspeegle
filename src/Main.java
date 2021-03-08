@@ -19,19 +19,23 @@ public class Main {
         deck.shuffle();
 
         //gives computer and player card
-        Card computerCard = new Card();
-        Card playerCard = new Card();
+        Card computerCard;
+        Card playerCard;
 
 
 
 
         while(play) {
 
-            //Fix
+            //seeing if cards left
             if(deck.getCardsLeft()==0){
                 System.out.println("No more cards");
                 break;
             }
+
+            //gives them card
+            computerCard = deck.removeCard();
+            playerCard = deck.removeCard();
 
 
             // get user's bet

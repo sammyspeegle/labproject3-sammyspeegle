@@ -7,10 +7,11 @@ public class Deck {
     private int cardsLeft;
 
 
+    //populate deck with 52 cards
     public void populate(){
         for(int i = 0; i<4; i++){
             for(int k = 0; k<13; k++){
-                Card newCard = new Card (i, k);
+                Card newCard = new Card (k, i);
                 cards.add(newCard);
             }
         }
@@ -21,6 +22,7 @@ public class Deck {
     }
 
 
+    //shuffle cards
     public void shuffle(){
         ArrayList<Card> newArrayList = new ArrayList<Card>();
         while(cards.size() != 0){
@@ -31,22 +33,24 @@ public class Deck {
         cards = newArrayList;
     }
 
+    //remove card
     public Card removeCard(){
-        Card a = null;
+        Card removalcard = null;
         if(cardsLeft !=0){
-            a = cards.get(cards.size()-1);
-            cards.remove(a);
+            removalcard = cards.get(cards.size()-1);
+            cards.remove(removalcard);
             cardsLeft = cardsLeft -1;
-            return a;
+            return removalcard;
         }
         else{
-            return a;
+            return removalcard;
         }
     }
 
-    public Boolean addCard(Card b){
+    //add card
+    public Boolean addCard(Card newcard){
         if(cards.size()<52){
-            cards.add(b);
+            cards.add(newcard);
             cardsLeft = cardsLeft + 1;
             return true;
         }
@@ -56,6 +60,7 @@ public class Deck {
     }
 
 
+    //getting amount of cards left
     public int getCardsLeft(){
         return cardsLeft;
     }

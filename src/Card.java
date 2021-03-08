@@ -4,80 +4,82 @@ public class Card {
     // ranks are ordered Ace-low and Queen-high
     private final String ranks[] ={"Ace","2","3","4","5","6","7","8","9","10","Jack","King","Queen"};
 
-// suits are ordered alphabetically
+    // suits are ordered alphabetically
     private final String suits[] = {"Clubs","Diamonds","Hearts","Spades"};
 
 
+    //declare variables that represent the card number and suit
     private int number;
     private int suit;
 
+    //default constructor
     public Card (){
         number = 0;
         suit = 0;
     }
 
+    //alternate constructor
     public Card (int number, int suit){
         this.number = number;
         this.suit = suit;
     }
 
+    //comparator
     public int Comparator (Card uCard){
-        CardComparator cp = new CardComparator();
-        Card comCard = new Card();
-        return cp.compare(comCard, uCard);
-
+        CardComparator comparing = new CardComparator();
+        Card computerCard = new Card();
+        return comparing.compare(computerCard, uCard);
         }
 
 
     //Override to string method
     @Override
     public String toString(){
-        return ranks[number] + " of " + suits[suit];
-    }
-
-    public String getRank(){
-        return ranks[number];
-    }
-
-    public String getSuit(){
-        return suits[suit];
+        return  ranks[number] + " of " + suits[suit];
     }
 
 
-    //fix
-    public int Ranktonumber(String b){
-        int a = 0;
+
+
+    //rank to number value
+    public int RankToNum(String rank){
+        int placing = 0;
         for (int i = 0; i<ranks.length; i++){
-            if(b.equals(ranks[i])){
-                a = i;
+            if(rank.equals(ranks[i])){
+                placing = i;
             }
         }
 
-        return a;
+        return placing;
     }
 
-    public int Suittonumber(String c){
-        int a = 0;
+    //suit to number value
+    public int SuitToNum(String suit){
+        int placing = 0;
         for (int i =0; i < suits.length; i++){
-            if (c.equals(suits[i])){
-                a = i;
+            if (suit.equals(suits[i])){
+                placing = i;
             }
         }
 
-        return a;
+        return placing;
     }
 
+    //comparator implemented
     class CardComparator implements Comparator<Card>{
 
-        public int compare (Card com, Card user){
-            int RankingCompare = Integer.compare(com.Ranktonumber(com.getRank()), user.Ranktonumber(user.getRank()));
-            int SuitCompare = Integer.compare(com.Suittonumber(com.getSuit()), user.Suittonumber(user.getSuit()));
+        @Override
+        public int compare (Card compute, Card use){
 
-            if (RankingCompare == 0){
+            //comparing the cards
+            int RankCompare = Integer.compare(compute.RankToNum(compute.ranks[number]), use.RankToNum(use.ranks[number]));
+            int SuitCompare = Integer.compare(compute.SuitToNum(compute.suits[suit]), use.SuitToNum(use.suits[suit]));
+
+            if (RankCompare == 0){
                 return SuitCompare;
             }
             else {
-                return RankingCompare;
+                return RankCompare;
             }
 
         }
